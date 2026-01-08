@@ -77,27 +77,27 @@ jobs:
           Rename-windows-wheels
       - name: Install MSYS2
         run: choco install msys2
-      - name: Upload wheels to server
-        env:
-          UBUNTU_UPLOAD_KEY: ${{ secrets.UBUNTU_UPLOAD_KEY }}
-          MSYSTEM: MINGW64
-          CHERE_INVOKING: 1
-        run: |
-          . .\.ci\windows_ci.ps1
-          Upload-windows-wheels-to-server -ip "$env:SERVER_IP"
+      # - name: Upload wheels to server
+      #   env:
+      #     UBUNTU_UPLOAD_KEY: ${{ secrets.UBUNTU_UPLOAD_KEY }}
+      #     MSYSTEM: MINGW64
+      #     CHERE_INVOKING: 1
+      #   run: |
+      #     . .\.ci\windows_ci.ps1
+      #     Upload-windows-wheels-to-server -ip "$env:SERVER_IP"
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2.4.1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: dist/*
           draft: true
-      - name: Publish to PyPI
-        if: github.event_name == 'create' && github.event.ref_type == 'tag'
-        env:
-          TWINE_USERNAME: "__token__"
-          TWINE_PASSWORD: ${{ secrets.pypi_password }}
-        run: |
-          twine upload dist/*
+      # - name: Publish to PyPI
+      #   if: github.event_name == 'create' && github.event.ref_type == 'tag'
+      #   env:
+      #     TWINE_USERNAME: "__token__"
+      #     TWINE_PASSWORD: ${{ secrets.pypi_password }}
+      #   run: |
+      #     twine upload dist/*
 
   windows_wheel_test:
     runs-on: windows-latest

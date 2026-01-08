@@ -32,13 +32,13 @@ jobs:
       run: |
         source .ci/ubuntu_ci.sh
         rename_wheels
-    - name: Upload wheels to server
-      if: github.event_name != 'pull_request'
-      env:
-        UBUNTU_UPLOAD_KEY: ${{ secrets.UBUNTU_UPLOAD_KEY }}
-      run: |
-        source .ci/ubuntu_ci.sh
-        upload_file_to_server "$SERVER_IP" "raspberrypi/kivy/"
+    # - name: Upload wheels to server
+    #   if: github.event_name != 'pull_request'
+    #   env:
+    #     UBUNTU_UPLOAD_KEY: ${{ secrets.UBUNTU_UPLOAD_KEY }}
+    #   run: |
+    #     source .ci/ubuntu_ci.sh
+    #     upload_file_to_server "$SERVER_IP" "raspberrypi/kivy/"
     - name: Upload wheels as artifact
       uses: actions/upload-artifact@v4
       if: github.event_name == 'pull_request'
