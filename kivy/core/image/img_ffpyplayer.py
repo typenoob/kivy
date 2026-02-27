@@ -54,7 +54,7 @@ class ImageLoaderFFPy(ImageLoaderBase):
     def load(self, filename):
         try:
             loader = ffImageLoader(filename)
-        except:
+        except Exception:
             Logger.warning('Image: Unable to load image <%s>' % filename)
             raise
 
